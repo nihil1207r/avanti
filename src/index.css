@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Avanti Pizza — Design System
+   All colors HSL. Brand: deep red #C0392B, gold #F1C40F, cream #FDF6EC, charcoal #1A1A1A
+*/
+
+@layer base {
+  :root {
+    --background: 36 56% 96%;
+    /* cream #FDF6EC */
+    --foreground: 0 0% 10%;
+    /* charcoal */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 6 63% 46%;
+    /* deep red #C0392B */
+    --primary-foreground: 36 56% 96%;
+    --primary-glow: 6 75% 58%;
+
+    --secondary: 0 0% 10%;
+    /* charcoal */
+    --secondary-foreground: 36 56% 96%;
+
+    --accent: 48 89% 52%;
+    /* gold #F1C40F */
+    --accent-foreground: 0 0% 10%;
+
+    --muted: 36 30% 90%;
+    --muted-foreground: 0 0% 35%;
+
+    --destructive: 0 75% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 36 25% 86%;
+    --input: 36 25% 88%;
+    --ring: 6 63% 46%;
+
+    --radius: 0.75rem;
+
+    /* Brand gradients & shadows */
+    --gradient-primary: linear-gradient(135deg, hsl(6 63% 46%), hsl(6 75% 58%));
+    --gradient-gold: linear-gradient(135deg, hsl(48 89% 52%), hsl(38 92% 58%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0.3) 0%, hsl(0 0% 0% / 0.75) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(36 56% 96%), hsl(36 50% 92%));
+
+    --shadow-warm: 0 20px 50px -20px hsl(6 63% 46% / 0.35);
+    --shadow-gold: 0 10px 40px -15px hsl(48 89% 52% / 0.45);
+    --shadow-card: 0 8px 24px -8px hsl(0 0% 0% / 0.12);
+    --shadow-elegant: 0 24px 60px -20px hsl(0 0% 0% / 0.25);
+
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 36 56% 96%;
+    --card: 0 0% 12%;
+    --card-foreground: 36 56% 96%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 36 56% 96%;
+    --primary: 6 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 6 80% 65%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 36 56% 96%;
+    --accent: 48 89% 55%;
+    --accent-foreground: 0 0% 10%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 36 20% 70%;
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: 6 75% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .glass-nav {
+    @apply backdrop-blur-xl bg-background/70 border-b border-border/40;
+  }
+
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .container-edge {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .story-link::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 h-0.5 w-full bg-accent origin-bottom-right scale-x-0 transition-transform duration-300;
+  }
+
+  .story-link:hover::after {
+    @apply origin-bottom-left scale-x-100;
+  }
+
+  .hover-lift {
+    transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elegant);
+  }
+}
+
+/* ── Branded scrollbar ── */
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-track: hsl(36 50% 91%);
+  --scrollbar-thumb: hsl(6 63% 46%);
+  --scrollbar-thumb-hover: hsl(6 63% 38%);
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-track);
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
