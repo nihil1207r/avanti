@@ -11,6 +11,14 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    headers: {
+      // Security headers served by the dev server
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+      "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
@@ -25,36 +33,5 @@ export default defineConfig(({ mode }) => ({
       "@tanstack/react-query",
       "@tanstack/query-core",
     ],
-  },
-  build: {
-    // Target modern browsers for smaller, faster output
-    target: "es2020",
-    // Enable minification
-    minify: "esbuild",
-    // Generate source maps only in dev
-    sourcemap: mode === "development",
-    // Raise chunk size warning threshold slightly
-    chunkSizeWarningLimit: 600,
-    rollupOptions: {
-      output: {
-        // Manual chunk splitting for better caching
-        manualChunks: {
-          // React core — almost never changes
-          "vendor-react": ["react", "react-dom", "react/jsx-runtime"],
-          // Router
-          "vendor-router": ["react-router-dom"],
-          // Data fetching
-          "vendor-query": ["@tanstack/react-query"],
-          // i18n
-          "vendor-i18n": ["react-i18next", "i18next"],
-          // UI utilities
-          "vendor-ui": ["lucide-react", "class-variance-authority", "clsx", "tailwind-merge"],
-        },
-        // Content-hash filenames for long-term caching
-        entryFileNames: "assets/[name]-[hash].js",
-        chunkFileNames: "assets/[name]-[hash].js",
-        assetFileNames: "assets/[name]-[hash][extname]",
-      },
-    },
   },
 }));

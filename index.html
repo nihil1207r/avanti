@@ -1,72 +1,47 @@
 <!doctype html>
 <html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avanti Pizza Botoșani — Pizza artizanală, burgeri și preparate premium</title>
+    <meta name="description" content="Tradiție italiană în inima Botoșaniului. Pizza artizanală, burgeri suculenți și preparate premium. Comandă: 0745 383 256." />
+    <meta name="author" content="Avanti Pizza" />
+    <meta name="theme-color" content="#C0392B" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Security headers via meta (complements server-level headers) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+    <!--
+      Content-Security-Policy:
+      - default-src 'self'
+      - scripts: self + inline (required by Vite HMR) + supabase CDN
+      - styles: self + unsafe-inline (required by Tailwind JIT)
+      - images: self + blob: (previews) + supabase storage + data URIs
+      - connect: self + supabase project
+      - frame-ancestors: none (stronger than X-Frame-Options for modern browsers)
+    -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' blob: data: https://ipakwhqygsltsjixmgec.supabase.co;
+      connect-src 'self' https://ipakwhqygsltsjixmgec.supabase.co wss://ipakwhqygsltsjixmgec.supabase.co;
+      font-src 'self' data:;
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
+    " />
 
-  <!-- Primary SEO -->
-  <title>Avanti Pizza Botoșani — Pizza artizanală, burgeri și preparate premium</title>
-  <meta name="description"
-    content="Tradiție italiană în inima Botoșaniului. Pizza artizanală, burgeri suculenți și preparate premium. Comandă acum: 0745 383 256." />
-  <meta name="keywords"
-    content="pizza botosani, avanti pizza, pizza artizanala, burgeri botosani, restaurant botosani, livrare pizza" />
-  <meta name="author" content="Avanti Pizza Botoșani" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="theme-color" content="#C0392B" />
+    <meta property="og:title" content="Avanti Pizza Botoșani" />
+    <meta property="og:description" content="Pizza artizanală, burgeri și preparate premium în Botoșani." />
+    <meta property="og:type" content="website" />
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://avantipizza.ro/" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="Avanti Pizza Botoșani" />
-  <meta property="og:title" content="Avanti Pizza Botoșani — Pizza artizanală, burgeri și preparate premium" />
-  <meta property="og:description"
-    content="Tradiție italiană în inima Botoșaniului. Pizza artizanală, burgeri suculenți și preparate premium. Comandă: 0745 383 256." />
-  <meta property="og:type" content="restaurant" />
-  <meta property="og:url" content="https://avantipizza.ro/" />
-  <meta property="og:image" content="https://avantipizza.ro/og-image.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Avanti Pizza Botoșani — pizza artizanală" />
-  <meta property="og:locale" content="ro_RO" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Avanti Pizza Botoșani" />
-  <meta name="twitter:description" content="Pizza artizanală, burgeri și preparate premium în Botoșani." />
-  <meta name="twitter:image" content="https://avantipizza.ro/og-image.jpg" />
-
-  <!-- Structured Data - Local Business / Restaurant -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": "Avanti Pizza Botoșani",
-      "url": "https://avantipizza.ro",
-      "telephone": "+40745383256",
-      "servesCuisine": ["Italian", "Pizza", "Burgers"],
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Botoșani",
-        "addressCountry": "RO"
-      },
-      "image": "https://avantipizza.ro/og-image.jpg"
-    }
-    </script>
-
-  <!-- Performance: preconnect to font origins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

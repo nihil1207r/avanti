@@ -1,3 +1,8 @@
+# Environment secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+
 # Logs
 logs
 *.log
@@ -7,17 +12,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies
 node_modules
-
-# Build output
 dist
 dist-ssr
-
-# Local env files — never commit secrets!
-.env
-.env.local
-.env.*.local
 *.local
 
 # Editor directories and files
@@ -30,12 +27,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# TypeScript build cache
-*.tsbuildinfo
-
-# OS files
-Thumbs.db
-
-# Supabase local dev
-supabase/.temp

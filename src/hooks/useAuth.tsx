@@ -10,43 +10,80 @@ type AuthCtx = {
   signOut: () => Promise<void>;
 };
 
-const Ctx = createContext<AuthCtx>({ user: null, session: null, isAdmin: false, loading: true, signOut: async () => {} });
+const Ctx = createContext<AuthCtx>({
+  user: null,
+  session: null,
+  isAdmin: false,
+  loading: true,
+  signOut: async () => {},
+});
+
+async function fetchIsAdmin(userId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  return !!data;
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  // loading stays true until BOTH session AND admin role are fully resolved
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_evt, s) => {
+    let cancelled = false;
+
+    // Initial session load — resolve everything before clearing loading
+    supabase.auth.getSession().then(async ({ data: { session: s } }) => {
+      if (cancelled) return;
       setSession(s);
       setUser(s?.user ?? null);
+
       if (s?.user) {
-        // Defer DB call to avoid auth deadlock
-        setTimeout(async () => {
-          const { data } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", s.user.id)
-            .eq("role", "admin")
-            .maybeSingle();
-          setIsAdmin(!!data);
-        }, 0);
+        const admin = await fetchIsAdmin(s.user.id);
+        if (!cancelled) setIsAdmin(admin);
+      }
+
+      if (!cancelled) setLoading(false);
+    });
+
+    // Subscribe to future auth state changes
+    const { data: sub } = supabase.auth.onAuthStateChange(async (_evt, s) => {
+      if (cancelled) return;
+      setSession(s);
+      setUser(s?.user ?? null);
+
+      if (s?.user) {
+        const admin = await fetchIsAdmin(s.user.id);
+        if (!cancelled) setIsAdmin(admin);
       } else {
         setIsAdmin(false);
       }
     });
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      setLoading(false);
-    });
-    return () => sub.subscription.unsubscribe();
+
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   return (
-    <Ctx.Provider value={{ user, session, isAdmin, loading, signOut: async () => { await supabase.auth.signOut(); } }}>
+    <Ctx.Provider
+      value={{
+        user,
+        session,
+        isAdmin,
+        loading,
+        signOut: async () => {
+          await supabase.auth.signOut();
+        },
+      }}
+    >
       {children}
     </Ctx.Provider>
   );
