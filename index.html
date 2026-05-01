@@ -13,27 +13,6 @@
     <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-    <!--
-      Content-Security-Policy:
-      - default-src 'self'
-      - scripts: self + inline (required by Vite HMR) + supabase CDN
-      - styles: self + unsafe-inline (required by Tailwind JIT)
-      - images: self + blob: (previews) + supabase storage + data URIs
-      - connect: self + supabase project
-      - frame-ancestors: none (stronger than X-Frame-Options for modern browsers)
-    -->
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' blob: data: https://ipakwhqygsltsjixmgec.supabase.co;
-      connect-src 'self' https://ipakwhqygsltsjixmgec.supabase.co wss://ipakwhqygsltsjixmgec.supabase.co;
-      font-src 'self' data:;
-      frame-ancestors 'none';
-      base-uri 'self';
-      form-action 'self';
-    " />
-
     <meta property="og:title" content="Avanti Pizza Botoșani" />
     <meta property="og:description" content="Pizza artizanală, burgeri și preparate premium în Botoșani." />
     <meta property="og:type" content="website" />
