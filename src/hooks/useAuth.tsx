@@ -19,13 +19,22 @@ const Ctx = createContext<AuthCtx>({
 });
 
 async function fetchIsAdmin(userId: string): Promise<boolean> {
-  const { data } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", userId)
-    .eq("role", "admin")
-    .maybeSingle();
-  return !!data;
+  try {
+    const result = await Promise.race([
+      supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle(),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("timeout")), 5000)
+      ),
+    ]);
+    return !!result.data;
+  } catch {
+    return false;
+  }
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -38,23 +47,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
 
-    // Initial session load — resolve everything before clearing loading
-    supabase.auth.getSession().then(async ({ data: { session: s } }) => {
-      if (cancelled) return;
-      setSession(s);
-      setUser(s?.user ?? null);
-
-      if (s?.user) {
-        const admin = await fetchIsAdmin(s.user.id);
-        if (!cancelled) setIsAdmin(admin);
-      }
-
-      if (!cancelled) setLoading(false);
-    });
-
-    // Subscribe to future auth state changes
+    // onAuthStateChange fires INITIAL_SESSION on mount, covering the first
+    // session load — no need for a separate getSession() call.
+    // keeping loading=true until BOTH the session AND the admin role check
+    // are resolved prevents Admin.tsx from briefly flashing "Not Admin"
+    // after a successful sign-in while fetchIsAdmin is still in-flight.
     const { data: sub } = supabase.auth.onAuthStateChange(async (_evt, s) => {
       if (cancelled) return;
+      setLoading(true);
       setSession(s);
       setUser(s?.user ?? null);
 
@@ -64,6 +64,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setIsAdmin(false);
       }
+
+      if (!cancelled) setLoading(false);
     });
 
     return () => {

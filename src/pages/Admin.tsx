@@ -13,7 +13,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Seo } from "@/components/Seo";
-import { Pencil, Trash2, Plus, LogOut, Upload } from "lucide-react";
+import { Pencil, Trash2, Plus, LogOut, Upload, MessageSquare, Mail, MailOpen } from "lucide-react";
 import { toast } from "sonner";
 import type { MenuItem } from "@/lib/types";
 import { ProductBadge } from "@/components/ProductBadge";
@@ -40,7 +40,8 @@ const empty = {
 };
 
 const Admin = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith("en") ? "en" : "ro";
   const { user, isAdmin, loading, signOut } = useAuth();
   const { data: cats = [] } = useCategories();
   const { data: items = [] } = useMenuItems();
@@ -49,6 +50,9 @@ const Admin = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [bootstrap, setBootstrap] = useState(false);
+  const [tab, setTab] = useState<"menu" | "messages">("menu");
+  const [messages, setMessages] = useState<{ id: string; name: string; email: string; message: string; read: boolean; created_at: string }[]>([]);
+  const [messagesLoading, setMessagesLoading] = useState(false);
 
   // First-user bootstrap: if no admin exists yet, allow first signed-in user to claim admin
   useEffect(() => {
@@ -62,7 +66,20 @@ const Admin = () => {
     })();
   }, [user, isAdmin, loading]);
 
-  // loading covers both session and isAdmin resolution — no flash risk
+  // Fetch messages when messages tab is opened
+  useEffect(() => {
+    if (tab !== "messages" || !isAdmin) return;
+    setMessagesLoading(true);
+    supabase
+      .from("contact_messages")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        setMessages(data ?? []);
+        setMessagesLoading(false);
+      });
+  }, [tab, isAdmin]);
+
   if (loading) return <div className="pt-32 text-center">...</div>;
   if (!user) return <Navigate to="/auth" replace />;
 
@@ -205,7 +222,30 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-card border border-border shadow-card overflow-hidden">
+        {/* Tabs */}
+        <div className="flex gap-1 mb-6 border-b border-border">
+          <button
+            onClick={() => setTab("menu")}
+            className={`px-4 py-2 text-sm font-medium rounded-t-md transition-colors ${tab === "menu" ? "bg-card border border-b-card border-border text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            {t("admin.title")}
+          </button>
+          <button
+            onClick={() => setTab("messages")}
+            className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-t-md transition-colors ${tab === "messages" ? "bg-card border border-b-card border-border text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            <MessageSquare className="size-3.5" />
+            Messages
+            {messages.filter(m => !m.read).length > 0 && (
+              <span className="ml-1 rounded-full bg-primary text-primary-foreground text-xs px-1.5 py-0.5 leading-none">
+                {messages.filter(m => !m.read).length}
+              </span>
+            )}
+          </button>
+        </div>
+
+        {tab === "menu" && (
+          <div className="rounded-2xl bg-card border border-border shadow-card overflow-hidden">
           <table className="w-full text-left text-sm">
             <thead className="bg-secondary text-secondary-foreground uppercase text-xs">
               <tr>
@@ -222,8 +262,8 @@ const Admin = () => {
                 const cat = cats.find((c) => c.id === it.category_id);
                 return (
                   <tr key={it.id} className={idx % 2 === 0 ? "bg-background" : "bg-muted/30"}>
-                    <td className="px-4 py-3 font-medium">{it.name_ro}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{cat?.name_ro ?? "—"}</td>
+                    <td className="px-4 py-3 font-medium">{lang === "en" ? it.name_en : it.name_ro}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{cat ? (lang === "en" ? cat.name_en : cat.name_ro) : "—"}</td>
                     <td className="px-4 py-3">{Number(it.price).toFixed(2)} Lei</td>
                     <td className="px-4 py-3"><ProductBadge badge={it.badge} /></td>
                     <td className="px-4 py-3">
@@ -245,7 +285,112 @@ const Admin = () => {
               })}
             </tbody>
           </table>
-        </div>
+          </div>
+        )}
+
+        {tab === "messages" && (
+          <div>
+            {messagesLoading ? (
+              <p className="p-8 text-center text-muted-foreground">Loading…</p>
+            ) : messages.length === 0 ? (
+              <p className="p-8 text-center text-muted-foreground">No messages yet.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-6">
+                {/* Unread column */}
+                <div>
+                  <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                    <Mail className="size-4 text-primary" /> Unread
+                    <span className="ml-auto text-xs bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                      {messages.filter(m => !m.read).length}
+                    </span>
+                  </h3>
+                  <div className="space-y-3">
+                    {messages.filter(m => !m.read).length === 0 && (
+                      <p className="text-sm text-muted-foreground italic">No unread messages.</p>
+                    )}
+                    {messages.filter(m => !m.read).map(msg => (
+                      <div key={msg.id} className="rounded-xl border border-border bg-card p-4 shadow-sm">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <p className="font-semibold truncate">{msg.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{msg.email}</p>
+                          </div>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap">{new Date(msg.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <p className="mt-2 text-sm text-muted-foreground whitespace-pre-wrap break-words">{msg.message}</p>
+                        <div className="mt-3 flex justify-end gap-1">
+                          <Button variant="outline" size="sm" className="text-xs gap-1"
+                            onClick={async () => {
+                              await supabase.from("contact_messages").update({ read: true }).eq("id", msg.id);
+                              setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, read: true } : m));
+                            }}
+                          >
+                            <MailOpen className="size-3.5" /> Mark read
+                          </Button>
+                          <Button variant="ghost" size="sm"
+                            onClick={async () => {
+                              if (!confirm("Delete this message?")) return;
+                              await supabase.from("contact_messages").delete().eq("id", msg.id);
+                              setMessages(prev => prev.filter(m => m.id !== msg.id));
+                            }}
+                          >
+                            <Trash2 className="size-4 text-destructive" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Read column */}
+                <div>
+                  <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                    <MailOpen className="size-4" /> Read
+                    <span className="ml-auto text-xs bg-muted text-muted-foreground rounded-full px-2 py-0.5">
+                      {messages.filter(m => m.read).length}
+                    </span>
+                  </h3>
+                  <div className="space-y-3">
+                    {messages.filter(m => m.read).length === 0 && (
+                      <p className="text-sm text-muted-foreground italic">No read messages.</p>
+                    )}
+                    {messages.filter(m => m.read).map(msg => (
+                      <div key={msg.id} className="rounded-xl border border-border bg-muted/30 p-4">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <p className="font-medium text-muted-foreground truncate">{msg.name}</p>
+                            <p className="text-xs text-muted-foreground truncate">{msg.email}</p>
+                          </div>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap">{new Date(msg.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <p className="mt-2 text-sm text-muted-foreground whitespace-pre-wrap break-words">{msg.message}</p>
+                        <div className="mt-3 flex justify-end gap-1">
+                          <Button variant="ghost" size="sm" className="text-xs gap-1"
+                            onClick={async () => {
+                              await supabase.from("contact_messages").update({ read: false }).eq("id", msg.id);
+                              setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, read: false } : m));
+                            }}
+                          >
+                            <Mail className="size-3.5" /> Mark unread
+                          </Button>
+                          <Button variant="ghost" size="sm"
+                            onClick={async () => {
+                              if (!confirm("Delete this message?")) return;
+                              await supabase.from("contact_messages").delete().eq("id", msg.id);
+                              setMessages(prev => prev.filter(m => m.id !== msg.id));
+                            }}
+                          >
+                            <Trash2 className="size-4 text-destructive" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
