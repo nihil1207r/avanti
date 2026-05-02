@@ -98,7 +98,7 @@ const Menu = () => {
       <section className="py-12 sm:py-16">
         <div className="container-edge">
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
                 <Skeleton key={i} className="h-80 rounded-2xl" />
               ))}
@@ -109,7 +109,7 @@ const Menu = () => {
             <AnimatePresence mode="popLayout">
               <motion.div
                 layout
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
               >
                 {filtered.map((it, i) => (
                   <motion.div key={it.id} layout>
