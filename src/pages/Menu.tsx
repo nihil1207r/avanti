@@ -128,6 +128,7 @@ const Menu = () => {
           const name = lang2 === "en" ? selectedItem.name_en : selectedItem.name_ro;
           const ingredients = lang2 === "en" ? selectedItem.ingredients_en : selectedItem.ingredients_ro;
           const src = getProductImage(selectedItem);
+          const isDrink = cats.find(c => c.id === selectedItem.category_id)?.slug === "bauturi";
           return (
             <motion.div
               key="backdrop"
@@ -155,7 +156,7 @@ const Menu = () => {
 
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   {src ? (
-                    <img src={src} alt={name} className="size-full object-cover" />
+                    <img src={src} alt={name} className={`size-full ${isDrink ? "object-contain p-4" : "object-cover"}`} />
                   ) : (
                     <div className="flex size-full items-center justify-center bg-gradient-warm">
                       <Pizza className="size-20 text-primary/30" strokeWidth={1.2} />
