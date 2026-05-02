@@ -4,7 +4,7 @@ import { useCategories, useMenuItems } from "@/lib/queries";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Common allergens per category (curated)
-const allergensByCategory: Record<string, string> = {
+const allergensByCategory_ro: Record<string, string> = {
   pizza: "Gluten, Lactoză, Ouă",
   burgeri: "Gluten, Lactoză, Ouă, Muștar, Susan",
   pui: "Gluten, Lactoză, Ouă",
@@ -15,9 +15,21 @@ const allergensByCategory: Record<string, string> = {
   top: "Variabil",
 };
 
+const allergensByCategory_en: Record<string, string> = {
+  pizza: "Gluten, Lactose, Eggs",
+  burgeri: "Gluten, Lactose, Eggs, Mustard, Sesame",
+  pui: "Gluten, Lactose, Eggs",
+  salate: "Lactose, Eggs, Mustard",
+  post: "Gluten",
+  sosuri: "Eggs, Mustard, Lactose",
+  bauturi: "—",
+  top: "Variable",
+};
+
 const Allergens = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("en") ? "en" : "ro";
+  const allergensByCategory = lang === "en" ? allergensByCategory_en : allergensByCategory_ro;
   const { data: cats = [], isLoading: lc } = useCategories();
   const { data: items = [], isLoading: li } = useMenuItems();
 

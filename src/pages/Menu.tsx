@@ -98,9 +98,9 @@ const Menu = () => {
       <section className="py-12 sm:py-16">
         <div className="container-edge">
           {isLoading ? (
-            <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="h-80 rounded-2xl shrink-0 w-72" />
+                <Skeleton key={i} className="h-80 rounded-2xl" />
               ))}
             </div>
           ) : filtered.length === 0 ? (
@@ -109,16 +109,12 @@ const Menu = () => {
             <AnimatePresence mode="popLayout">
               <motion.div
                 layout
-                className="flex gap-6 overflow-x-auto pb-6"
-                style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
               >
                 {filtered.map((it, i) => (
-                  <div
-                    key={it.id}
-                    style={{ scrollSnapAlign: "start", flexShrink: 0, width: "18rem" }}
-                  >
+                  <motion.div key={it.id} layout>
                     <ProductCard item={it} index={i} onClick={() => setSelectedItem(it)} />
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             </AnimatePresence>

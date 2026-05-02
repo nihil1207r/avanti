@@ -28,7 +28,7 @@ export function ProductCard({ item, index = 0, onClick }: { item: MenuItem; inde
               src={src}
               alt={name}
               loading="lazy"
-              className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="size-full object-contain transition-transform duration-700 group-hover:scale-105 p-2"
             />
           ) : (
             <div className="flex size-full items-center justify-center bg-gradient-warm">
