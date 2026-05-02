@@ -42,13 +42,49 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-4 grid gap-4 md:grid-cols-2 border-t border-secondary-foreground/15 pt-8">
-          <div className="space-y-2 text-sm text-secondary-foreground/80">
-            <p className="flex items-center gap-2"><MapPin className="size-4 text-accent" /> Botoșani, România</p>
-            <p className="flex items-center gap-2"><Phone className="size-4 text-accent" /> 0745 383 256</p>
+          <div className="flex flex-wrap items-center gap-3">
+            {/* ANPC SAL banner */}
+            <a
+              href="https://anpc.ro/ce-este-sal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded border-2 border-[#1a3a6b] bg-white text-[#1a3a6b] px-3 py-2 hover:bg-[#f0f4ff] transition-colors min-w-[230px]"
+            >
+              <div className="flex items-center justify-center rounded bg-[#1a3a6b] p-1.5 shrink-0">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="40" height="40" rx="4" fill="#1a3a6b"/>
+                  <text x="20" y="26" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold" fontFamily="sans-serif">ANPC</text>
+                </svg>
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] font-bold uppercase tracking-wide">{t("footer.anpcSalTitle")}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide">{t("footer.anpcSalSub")}</span>
+                <span className="mt-1 text-[9px] font-semibold text-[#c8102e] uppercase border border-[#c8102e] px-1.5 py-0.5 rounded self-start">{t("footer.anpcDetails")}</span>
+              </div>
+            </a>
+            {/* ANPC SOL banner */}
+            <a
+              href="https://ec.europa.eu/consumers/odr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded border-2 border-[#1a3a6b] bg-[#1a3a6b] text-white px-3 py-2 hover:bg-[#162f5a] transition-colors min-w-[230px]"
+            >
+              <div className="flex items-center justify-center rounded bg-white p-1.5 shrink-0">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="40" height="40" rx="4" fill="#003399"/>
+                  <text x="20" y="26" textAnchor="middle" fill="#FFD700" fontSize="9" fontWeight="bold" fontFamily="sans-serif">ANPC</text>
+                </svg>
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] font-bold uppercase tracking-wide">{t("footer.anpcSolTitle")}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide">{t("footer.anpcSolSub")}</span>
+                <span className="mt-1 text-[9px] font-semibold text-[#FFD700] uppercase border border-[#FFD700] px-1.5 py-0.5 rounded self-start">{t("footer.anpcDetails")}</span>
+              </div>
+            </a>
           </div>
-          <div className="flex flex-wrap items-center gap-3 md:justify-end">
-            <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener" className="rounded border border-secondary-foreground/30 px-3 py-1.5 text-xs hover:bg-secondary-foreground/10">ANPC SAL</a>
-            <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" className="rounded border border-secondary-foreground/30 px-3 py-1.5 text-xs hover:bg-secondary-foreground/10">ANPC SOL</a>
+          <div className="space-y-2 text-sm text-secondary-foreground/80 md:text-right">
+            <p className="flex items-center gap-2 md:justify-end"><MapPin className="size-4 text-accent" /> Botoșani, România</p>
+            <p className="flex items-center gap-2 md:justify-end"><Phone className="size-4 text-accent" /> 0745 383 256</p>
           </div>
         </div>
       </div>

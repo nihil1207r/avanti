@@ -1,18 +1,27 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
 import { ArrowRight, Phone, MapPin, Sparkles, Truck, ChefHat, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/Seo";
-import { ProductCard } from "@/components/ProductCard";
-import { useFeaturedItems } from "@/lib/queries";
 import { PizzaScrollAnimation } from "@/components/PizzaScrollAnimation";
 import hero from "@/assets/hero-pizza.jpg";
 import about from "@/assets/about-chef.jpg";
+import pizza3d from "@/assets/pizza-3d.png";
 
 const Home = () => {
   const { t } = useTranslation();
-  const { data: featured = [] } = useFeaturedItems();
+
+  const whySectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: whySectionRef,
+    offset: ["start end", "end start"],
+  });
+  const rawY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const rawRotate = useTransform(scrollYProgress, [0, 1], [-12, 0]);
+  const pizzaY = useSpring(rawY, { stiffness: 60, damping: 20 });
+  const pizzaRotate = useSpring(rawRotate, { stiffness: 60, damping: 20 });
 
   const why = [
     { key: "fresh", icon: Sparkles },
@@ -48,48 +57,69 @@ const Home = () => {
       <PizzaScrollAnimation />
 
       {/* WHY */}
-      <section className="py-20 sm:py-28 bg-gradient-warm">
+      <section ref={whySectionRef} className="py-20 sm:py-28 bg-gradient-warm overflow-hidden">
         <div className="container-edge">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">{t("why.subtitle")}</p>
-            <h2 className="mt-3 font-display text-4xl sm:text-5xl font-bold">{t("why.title")}</h2>
-          </div>
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {why.map((w, i) => (
-              <motion.div key={w.key}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group rounded-2xl bg-card p-7 shadow-card hover-lift border border-border/40 text-center">
-                <div className="mx-auto mb-5 grid size-14 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-warm group-hover:scale-110 transition-transform duration-300">
-                  <w.icon className="size-6" />
-                </div>
-                <h3 className="font-display text-xl font-semibold">{t(`why.items.${w.key}.title`)}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{t(`why.items.${w.key}.desc`)}</p>
+          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
+            {/* Pizza image left — scroll-driven parallax only */}
+            <motion.div
+              style={{
+                y: pizzaY,
+                rotate: pizzaRotate,
+                WebkitMaskImage: "radial-gradient(ellipse 65% 70% at 52% 52%, black 30%, transparent 70%)",
+                maskImage: "radial-gradient(ellipse 65% 70% at 52% 52%, black 30%, transparent 70%)",
+              }}
+              className="flex-shrink-0 flex justify-center lg:justify-start"
+            >
+              <img
+                src={pizza3d}
+                alt="Avanti Pizza slice"
+                className="w-64 sm:w-80 lg:w-96 xl:w-[420px] select-none pointer-events-none"
+              />
+            </motion.div>
+            {/* Text + cards right */}
+            <div className="flex-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-10"
+              >
+                <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">{t("why.subtitle")}</p>
+                <h2 className="mt-3 font-display text-4xl sm:text-5xl font-bold">{t("why.title")}</h2>
               </motion.div>
-            ))}
+              <div className="grid gap-6 sm:grid-cols-2">
+                {why.map((w, i) => (
+                  <motion.div key={w.key}
+                    initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="group rounded-2xl bg-card p-7 shadow-card hover-lift border border-border/40 text-center">
+                    <div className="mx-auto mb-5 grid size-14 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-warm group-hover:scale-110 transition-transform duration-300">
+                      <w.icon className="size-6" />
+                    </div>
+                    <h3 className="font-display text-xl font-semibold">{t(`why.items.${w.key}.title`)}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{t(`why.items.${w.key}.desc`)}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURED */}
-      {featured.length > 0 && (
-        <section className="py-20 sm:py-28">
-          <div className="container-edge">
-            <div className="flex flex-col items-center text-center mb-12">
-              <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">⭐ {t("featured.title")}</p>
-              <h2 className="mt-3 font-display text-4xl sm:text-5xl font-bold">{t("featured.subtitle")}</h2>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.slice(0, 6).map((it, i) => <ProductCard key={it.id} item={it} index={i} />)}
-            </div>
-            <div className="mt-12 text-center">
-              <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                <Link to="/meniu">{t("hero.cta")} <ArrowRight className="ml-1 size-4" /></Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      )}
+      {/* CTA Buttons: View Menu + Order */}
+      <section className="py-10 sm:py-14 bg-gradient-warm">
+        <div className="container-edge flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px]">
+            <Link to="/meniu">{t("hero.cta")} <ArrowRight className="ml-1 size-4" /></Link>
+          </Button>
+          <Button asChild size="lg" className="bg-primary hover:bg-primary-glow text-primary-foreground min-w-[180px]">
+            <a href="https://comanda.avantipizza.ro" target="_blank" rel="noopener noreferrer">
+              {t("modal.order")} <ArrowRight className="ml-1 size-4" />
+            </a>
+          </Button>
+        </div>
+      </section>
 
       {/* TESTIMONIALS */}
       <section className="py-20 sm:py-28 bg-secondary text-secondary-foreground">

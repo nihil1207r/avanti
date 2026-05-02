@@ -9,7 +9,7 @@ import { ProductBadge } from "@/components/ProductBadge";
 import { useCategories, useMenuItems } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getProductImage } from "@/lib/categoryImages";
+import { getProductImage, DRINKS_CATEGORY_ID } from "@/lib/categoryImages";
 import type { MenuItem } from "@/lib/types";
 
 const Menu = () => {
@@ -36,8 +36,8 @@ const Menu = () => {
   }, [items, active, q]);
 
   const tabs = [
-    { id: "all", label: t("menu.all") },
     ...cats.map((c) => ({ id: c.id, label: lang === "en" ? c.name_en : c.name_ro, slug: c.slug })),
+    { id: "all", label: t("menu.all") },
   ];
 
   const isLoading = lc || li;
@@ -94,12 +94,12 @@ const Menu = () => {
         </div>
       </div>
 
-      {/* Horizontal Scroll */}
+      {/* Vertical Grid */}
       <section className="py-12 sm:py-16">
         <div className="container-edge">
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {Array.from({ length: 6 }).map((_, i) => (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
                 <Skeleton key={i} className="h-80 rounded-2xl" />
               ))}
             </div>
@@ -109,16 +109,27 @@ const Menu = () => {
             <AnimatePresence mode="popLayout">
               <motion.div
                 layout
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               >
                 {filtered.map((it, i) => (
-                  <motion.div key={it.id} layout>
-                    <ProductCard item={it} index={i} onClick={() => setSelectedItem(it)} categorySlug={cats.find(c => c.id === it.category_id)?.slug} />
-                  </motion.div>
+                  <ProductCard key={it.id} item={it} index={i} onClick={() => setSelectedItem(it)} />
                 ))}
               </motion.div>
             </AnimatePresence>
           )}
+        </div>
+      </section>
+      {/* Order CTA */}
+      <section className="py-10 sm:py-14 bg-gradient-warm">
+        <div className="container-edge flex justify-center">
+          <a
+            href="https://comanda.avantipizza.ro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-10 py-4 text-base font-semibold text-primary-foreground shadow-warm hover:bg-primary/90 transition-colors"
+          >
+            {t("modal.order")} →
+          </a>
         </div>
       </section>
       {/* Item Detail Modal */}
@@ -128,7 +139,6 @@ const Menu = () => {
           const name = lang2 === "en" ? selectedItem.name_en : selectedItem.name_ro;
           const ingredients = lang2 === "en" ? selectedItem.ingredients_en : selectedItem.ingredients_ro;
           const src = getProductImage(selectedItem);
-          const isDrink = cats.find(c => c.id === selectedItem.category_id)?.slug === "bauturi";
           return (
             <motion.div
               key="backdrop"
@@ -156,7 +166,16 @@ const Menu = () => {
 
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   {src ? (
-                    <img src={src} alt={name} className={`size-full ${isDrink ? "object-contain p-4" : "object-cover"}`} />
+                    <img
+                      src={src}
+                      alt={name}
+                      className={[
+                        "size-full transition-transform duration-300",
+                        selectedItem.category_id === DRINKS_CATEGORY_ID
+                          ? "object-contain p-6"
+                          : "object-cover",
+                      ].join(" ")}
+                    />
                   ) : (
                     <div className="flex size-full items-center justify-center bg-gradient-warm">
                       <Pizza className="size-20 text-primary/30" strokeWidth={1.2} />

@@ -3,14 +3,16 @@ import { useTranslation } from "react-i18next";
 import { ProductBadge } from "./ProductBadge";
 import type { MenuItem } from "@/lib/types";
 import { Pizza } from "lucide-react";
-import { getProductImage } from "@/lib/categoryImages";
+import { getProductImage, DRINKS_CATEGORY_ID } from "@/lib/categoryImages";
 
-export function ProductCard({ item, index = 0, onClick, categorySlug }: { item: MenuItem; index?: number; onClick?: () => void; categorySlug?: string }) {
+export function ProductCard({ item, index = 0, onClick }: { item: MenuItem; index?: number; onClick?: () => void }) {
   const { i18n } = useTranslation();
   const lang = i18n.language.startsWith("en") ? "en" : "ro";
   const name = lang === "en" ? item.name_en : item.name_ro;
   const ingredients = lang === "en" ? item.ingredients_en : item.ingredients_ro;
-  const isDrink = categorySlug === "bauturi";
+
+  const src = getProductImage(item, index);
+  const isDrink = item.category_id === DRINKS_CATEGORY_ID;
 
   return (
     <motion.article
@@ -22,21 +24,21 @@ export function ProductCard({ item, index = 0, onClick, categorySlug }: { item: 
       className="group relative flex flex-col overflow-hidden rounded-2xl bg-card shadow-card hover-lift border border-border/50 h-full cursor-pointer"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        {(() => {
-          const src = getProductImage(item);
-          return src ? (
-            <img
-              src={src}
-              alt={name}
-              loading="lazy"
-              className={`size-full transition-transform duration-700 group-hover:scale-105 ${isDrink ? "object-contain p-2" : "object-cover group-hover:scale-110"}`}
-            />
-          ) : (
-            <div className="flex size-full items-center justify-center bg-gradient-warm">
-              <Pizza className="size-16 text-primary/30" strokeWidth={1.2} />
-            </div>
-          );
-        })()}
+        {src ? (
+          <img
+            src={src}
+            alt={name}
+            loading="lazy"
+            className={[
+              "size-full transition-transform duration-700 group-hover:scale-110",
+              isDrink ? "object-contain p-4" : "object-cover",
+            ].join(" ")}
+          />
+        ) : (
+          <div className="flex size-full items-center justify-center bg-gradient-warm">
+            <Pizza className="size-16 text-primary/30" strokeWidth={1.2} />
+          </div>
+        )}
         {item.badge && (
           <div className="absolute left-3 top-3">
             <ProductBadge badge={item.badge} />

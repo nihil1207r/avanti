@@ -43,6 +43,11 @@ const resources = {
         legal: "Legal",
         contact: "Contact",
         rights: "Toate drepturile rezervate.",
+        anpcSalTitle: "Soluționarea alternativă",
+        anpcSalSub: "a litigiilor",
+        anpcSolTitle: "Soluționarea online",
+        anpcSolSub: "a litigiilor",
+        anpcDetails: "Detalii",
       },
       contactPage: {
         title: "Contactează-ne",
@@ -157,6 +162,11 @@ const resources = {
         legal: "Legal",
         contact: "Contact",
         rights: "All rights reserved.",
+        anpcSalTitle: "Alternative Dispute",
+        anpcSalSub: "Resolution (SAL)",
+        anpcSolTitle: "Online Dispute",
+        anpcSolSub: "Resolution (SOL)",
+        anpcDetails: "Details",
       },
       contactPage: {
         title: "Contact us",
