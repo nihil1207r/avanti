@@ -103,8 +103,9 @@ const Contact = () => {
             <div className="overflow-hidden rounded-2xl shadow-card aspect-video mt-6">
               <iframe
                 title="Avanti Pizza Botoșani"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=26.5147%2C47.7287%2C26.7547%2C47.7687&layer=mapnik&marker=47.7487%2C26.6347"
-                className="size-full border-0"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=26.6467%2C47.7387%2C26.6867%2C47.7587&layer=mapnik&marker=47.7487%2C26.6667"
+                className="w-full border-0"
+                style={{ height: "calc(100% + 30px)" }}
                 loading="lazy"
               />
             </div>
