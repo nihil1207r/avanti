@@ -113,7 +113,7 @@ const Menu = () => {
               >
                 {filtered.map((it, i) => (
                   <motion.div key={it.id} layout>
-                    <ProductCard item={it} index={i} onClick={() => setSelectedItem(it)} />
+                    <ProductCard item={it} index={i} onClick={() => setSelectedItem(it)} categorySlug={cats.find(c => c.id === it.category_id)?.slug} />
                   </motion.div>
                 ))}
               </motion.div>

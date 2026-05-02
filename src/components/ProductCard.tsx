@@ -5,11 +5,12 @@ import type { MenuItem } from "@/lib/types";
 import { Pizza } from "lucide-react";
 import { getProductImage } from "@/lib/categoryImages";
 
-export function ProductCard({ item, index = 0, onClick }: { item: MenuItem; index?: number; onClick?: () => void }) {
+export function ProductCard({ item, index = 0, onClick, categorySlug }: { item: MenuItem; index?: number; onClick?: () => void; categorySlug?: string }) {
   const { i18n } = useTranslation();
   const lang = i18n.language.startsWith("en") ? "en" : "ro";
   const name = lang === "en" ? item.name_en : item.name_ro;
   const ingredients = lang === "en" ? item.ingredients_en : item.ingredients_ro;
+  const isDrink = categorySlug === "bauturi";
 
   return (
     <motion.article
@@ -28,7 +29,7 @@ export function ProductCard({ item, index = 0, onClick }: { item: MenuItem; inde
               src={src}
               alt={name}
               loading="lazy"
-              className="size-full object-contain transition-transform duration-700 group-hover:scale-105 p-2"
+              className={`size-full transition-transform duration-700 group-hover:scale-105 ${isDrink ? "object-contain p-2" : "object-cover group-hover:scale-110"}`}
             />
           ) : (
             <div className="flex size-full items-center justify-center bg-gradient-warm">
