@@ -102,11 +102,10 @@ const Contact = () => {
             </div>
             <div className="overflow-hidden rounded-2xl shadow-card aspect-video mt-6">
               <iframe
-                title="Avanti Pizza Botoșani — OpenStreetMap"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=26.6054%2C47.7087%2C26.7254%2C47.7887&layer=mapnik&marker=47.7487%2C26.6654"
+                title="Avanti Pizza Botoșani"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=26.5147%2C47.7287%2C26.7547%2C47.7687&layer=mapnik&marker=47.7487%2C26.6347"
                 className="size-full border-0"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
           </div>
