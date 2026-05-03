@@ -23,7 +23,14 @@ const resources = {
         },
       },
       featured: { title: "Top Alegeri", subtitle: "Cele mai îndrăgite preparate ale clienților noștri" },
-      testimonials: { title: "Ce spun clienții noștri" },
+      testimonials: {
+        title: "Ce spun clienții noștri",
+        items: [
+          { text: "Cea mai bună pizza din Botoșani! Aluatul e perfect și ingredientele se simt proaspete." },
+          { text: "Burgerul BBQ e divin, livrare rapidă și caldă. Recomand cu drag!" },
+          { text: "Ne-am îndrăgostit de Capriciosa. Mâncare premium la preț corect." },
+        ],
+      },
       about: { title: "Povestea noastră", body: "De peste un deceniu, Avanti Pizza aduce în Botoșani gustul autentic al Italiei. Folosim doar ingrediente proaspete, aluat dospit lent și rețete tradiționale italiene, transmise cu pasiune.", cta: "Află mai mult" },
       cta: { title: "Te așteptăm la masă", phone: "Sună acum", visit: "Vino în vizită" },
       modal: { order: "Comandă acum", back: "Înapoi" },
@@ -142,7 +149,14 @@ const resources = {
         },
       },
       featured: { title: "Top Picks", subtitle: "The most loved dishes by our customers" },
-      testimonials: { title: "What our customers say" },
+      testimonials: {
+        title: "What our customers say",
+        items: [
+          { text: "The best pizza in Botoșani! The dough is perfect and the ingredients taste so fresh." },
+          { text: "The BBQ burger is divine, fast and hot delivery. Highly recommend!" },
+          { text: "We fell in love with the Capriciosa. Premium food at a fair price." },
+        ],
+      },
       about: { title: "Our story", body: "For over a decade, Avanti Pizza has brought the authentic taste of Italy to Botoșani. We use only fresh ingredients, slow-risen dough, and traditional Italian recipes, made with passion.", cta: "Learn more" },
       cta: { title: "We can't wait to host you", phone: "Call now", visit: "Come visit" },
       modal: { order: "Order now", back: "Back" },

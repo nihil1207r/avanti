@@ -6,7 +6,7 @@ import logo from "@/assets/logo.png";
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="mt-24 bg-secondary text-secondary-foreground">
+    <footer className="bg-secondary text-secondary-foreground">
       <div className="container-edge grid gap-10 py-16 md:grid-cols-4">
         <div className="space-y-4 md:col-span-2">
           <img src={logo} alt="Avanti Pizza" className="h-14 brightness-0 invert opacity-90" />

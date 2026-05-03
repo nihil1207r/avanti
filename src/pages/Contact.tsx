@@ -74,30 +74,57 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container-edge grid gap-10 lg:grid-cols-2">
+      {/* ── Contact section with background video ── */}
+      <section className="relative py-16 overflow-hidden" style={{ marginBottom: "-1px" }}>
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          // @ts-ignore — fetchpriority is valid but not yet in all TS DOM libs
+          fetchpriority="high"
+          poster="/videos/Pizza_Intro_poster.jpg"
+        >
+          <source src="/videos/Pizza_Intro_trimmed.webm" type="video/webm" />
+          <source src="/videos/Pizza_Intro_trimmed.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay so content stays readable */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        {/* Content sits above the video */}
+        <div className="relative z-10 container-edge grid gap-10 lg:grid-cols-2">
 
           {/* ── Left: info + map ── */}
           <div className="space-y-6">
             <div className="flex gap-4 items-start">
-              <div className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary shrink-0"><MapPin /></div>
+              <div className="grid size-12 place-items-center rounded-xl bg-primary/20 text-primary shrink-0">
+                <MapPin />
+              </div>
               <div>
-                <h3 className="font-display text-xl font-semibold">{t("contactPage.addressLabel")}</h3>
-                <p className="text-muted-foreground">Botoșani, România</p>
+                <h3 className="font-display text-xl font-semibold text-white">{t("contactPage.addressLabel")}</h3>
+                <p className="text-white/70">Botoșani, România</p>
               </div>
             </div>
             <div className="flex gap-4 items-start">
-              <div className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary shrink-0"><Phone /></div>
+              <div className="grid size-12 place-items-center rounded-xl bg-primary/20 text-primary shrink-0">
+                <Phone />
+              </div>
               <div>
-                <h3 className="font-display text-xl font-semibold">{t("contactPage.phoneLabel")}</h3>
-                <a href="tel:+40745383256" className="text-muted-foreground hover:text-primary">0745 383 256</a>
+                <h3 className="font-display text-xl font-semibold text-white">{t("contactPage.phoneLabel")}</h3>
+                <a href="tel:+40745383256" className="text-white/70 hover:text-primary">0745 383 256</a>
               </div>
             </div>
             <div className="flex gap-4 items-start">
-              <div className="grid size-12 place-items-center rounded-xl bg-primary/10 text-primary shrink-0"><Clock /></div>
+              <div className="grid size-12 place-items-center rounded-xl bg-primary/20 text-primary shrink-0">
+                <Clock />
+              </div>
               <div>
-                <h3 className="font-display text-xl font-semibold">{t("contactPage.hoursLabel")}</h3>
-                <p className="text-muted-foreground">{t("contactPage.hours")}</p>
+                <h3 className="font-display text-xl font-semibold text-white">{t("contactPage.hoursLabel")}</h3>
+                <p className="text-white/70">{t("contactPage.hours")}</p>
               </div>
             </div>
             <div className="overflow-hidden rounded-2xl shadow-card aspect-video mt-6">
@@ -115,7 +142,7 @@ const Contact = () => {
           <form
             onSubmit={submit}
             noValidate
-            className="rounded-2xl bg-card p-8 shadow-card border border-border/40 space-y-5 h-fit"
+            className="rounded-2xl bg-card/90 backdrop-blur-sm p-8 shadow-card border border-border/40 space-y-5 h-fit"
           >
             <h2 className="font-display text-2xl font-semibold">{t("contactPage.formTitle")}</h2>
 
