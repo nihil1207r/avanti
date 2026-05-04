@@ -12,7 +12,13 @@ const loadFrames = (): Promise<string[]> =>
 
 const FRAME_COUNT_ESTIMATE = 240; // used only for scroll height
 
-export function PizzaScrollAnimation() {
+export function PizzaScrollAnimation({
+  primaryButton,
+  secondaryButton,
+}: {
+  primaryButton?: React.ReactNode;
+  secondaryButton?: React.ReactNode;
+} = {}) {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -186,23 +192,27 @@ export function PizzaScrollAnimation() {
             transition={{ duration: 0.9, delay: 0.75 }}
             className="mt-10 flex flex-wrap gap-3 justify-center"
           >
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary hover:bg-primary-glow shadow-warm text-base h-14 px-8"
-            >
-              <Link to="/meniu">
-                {t("hero.cta")} <ArrowRight className="ml-1" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 text-base bg-transparent border-white/40 text-white hover:bg-white hover:text-foreground"
-            >
-              <Link to="/contact">{t("hero.cta2")}</Link>
-            </Button>
+            {primaryButton || (
+              <Button
+                asChild
+                size="lg"
+                className="bg-primary hover:bg-primary-glow shadow-warm text-base h-14 px-8"
+              >
+                <Link to="/meniu">
+                  {t("hero.cta")} <ArrowRight className="ml-1" />
+                </Link>
+              </Button>
+            )}
+            {secondaryButton || (
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 text-base bg-transparent border-white/40 text-white hover:bg-white hover:text-foreground"
+              >
+                <Link to="/contact">{t("hero.cta2")}</Link>
+              </Button>
+            )}
           </motion.div>
         </motion.div>
 
