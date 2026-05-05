@@ -1,46 +1,204 @@
+import { useTranslation } from "react-i18next";
 import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Returns() {
+  const { t } = useTranslation();
   return (
-    <LegalLayout title="Retur & Reclamații" path="/retur">
-      <h2>❌ Politica de retur</h2>
-      <p>
-        Produsele alimentare <strong>NU pot fi returnate</strong> după livrare,
-        conform legislației în vigoare privind siguranța alimentară.
-      </p>
+    <LegalLayout title={t("legalPages.returns.title")} path="/retur">
+      <div className="terms-content">
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s1_title")}</h2>
+          <p>{t("legalPages.returns.s1_text")}</p>
+        </section>
 
-      <h2>✔ Dacă apare o problemă</h2>
-      <p>Te ajutăm imediat dacă:</p>
-      <ul>
-        <li>produsul primit este greșit față de comandă</li>
-        <li>produsul este deteriorat sau prezintă probleme</li>
-        <li>comanda nu corespunde cu ce ai comandat</li>
-      </ul>
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s2_title")}</h2>
+          <p>{t("legalPages.returns.s2_intro")}</p>
+          <ul className="step-list">
+            <li>
+              <span className="step-icon">✔</span>
+              <span>{t("legalPages.returns.s2_step1")}</span>
+            </li>
+            <li>
+              <span className="step-icon">✔</span>
+              <span>{t("legalPages.returns.s2_step2")}</span>
+            </li>
+            <li>
+              <span className="step-icon">✔</span>
+              <span>{t("legalPages.returns.s2_step3")}</span>
+            </li>
+          </ul>
+        </section>
 
-      <h2>📩 Contact rapid</h2>
-      <p>
-        📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a><br />
-        📞 0745 383 256
-      </p>
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s3_title")}</h2>
+          <ul className="info-list">
+            <li>
+              <span className="info-icon">⏱</span>
+              <span>{t("legalPages.returns.s3_text")}</span>
+            </li>
+          </ul>
+        </section>
 
-      <h2>⏱ Timp reclamație</h2>
-      <p>
-        Reclamațiile trebuie transmise în <strong>maxim 24 de ore</strong> de la livrare,
-        pentru a putea fi soluționate corespunzător.
-      </p>
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s4_title")}</h2>
+          <p className="highlight-note">{t("legalPages.returns.s4_note")}</p>
+        </section>
 
-      <h2>🎯 Scopul nostru</h2>
-      <p>
-        Ne dorim să pleci mulțumit de fiecare comandă. Satisfacția ta este prioritatea noastră,
-        și vom face tot ce ne stă în putință să rezolvăm orice situație neplăcută.
-      </p>
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s5_title")}</h2>
+          <p>{t("legalPages.returns.s5_text")}</p>
+          <ul className="link-list">
+            <li>
+              <strong>ANPC:</strong>{" "}
+              <a href="https://anpc.ro" target="_blank" rel="noopener noreferrer">https://anpc.ro</a>
+            </li>
+            <li>
+              <strong>SOL:</strong>{" "}
+              <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>
+            </li>
+          </ul>
+        </section>
 
-      <h2>Litigii</h2>
-      <p>Rezolvăm orice problemă amiabil. Dacă este nevoie, poți apela la:</p>
-      <ul>
-        <li>ANPC: <a href="https://anpc.ro" target="_blank" rel="noopener noreferrer">https://anpc.ro</a></li>
-        <li>SOL: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a></li>
-      </ul>
+        <section className="legal-section">
+          <h2>{t("legalPages.returns.s6_title")}</h2>
+          <div className="contact-block">
+            <p>📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a></p>
+            <p>📞 0745 383 256</p>
+          </div>
+        </section>
+
+        <div className="legal-footer">
+          <p><strong>{t("legalPages.returns.footer")}</strong></p>
+        </div>
+
+      </div>
+
+      <style>{`
+        .terms-content {
+          font-family: inherit;
+          color: inherit;
+          max-width: 800px;
+        }
+
+        .legal-section {
+          margin-bottom: 2rem;
+        }
+
+        .legal-section h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #b45309;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.75rem;
+          margin-top: 0;
+        }
+
+        .legal-section p {
+          margin: 0.4rem 0;
+          line-height: 1.7;
+        }
+
+        /* Contact block */
+        .contact-block {
+          padding: 0.75rem 1rem;
+          background: rgba(0,0,0,0.03);
+          border-left: 3px solid #b45309;
+          border-radius: 0 4px 4px 0;
+        }
+
+        .contact-block p {
+          margin: 0.3rem 0;
+          font-size: 0.9rem;
+        }
+
+        /* Lists */
+        .step-list,
+        .info-list,
+        .status-list,
+        .link-list {
+          list-style: none;
+          margin: 0.25rem 0;
+          padding: 0;
+        }
+
+        .step-list li,
+        .info-list li,
+        .status-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          padding: 0.4rem 0;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+          line-height: 1.6;
+        }
+
+        .step-list li:last-child,
+        .info-list li:last-child,
+        .status-list li:last-child {
+          border-bottom: none;
+        }
+
+        .step-icon,
+        .info-icon,
+        .status-icon {
+          flex-shrink: 0;
+          width: 1.25rem;
+          text-align: center;
+          margin-top: 0.1rem;
+        }
+
+        /* Link list */
+        .link-list {
+          margin-top: 0.5rem;
+        }
+
+        .link-list li {
+          padding: 0.3rem 0;
+          line-height: 1.6;
+        }
+
+        /* Note styling */
+        .note {
+          margin-top: 0.75rem !important;
+          font-size: 0.875rem;
+          opacity: 0.75;
+          font-style: italic;
+        }
+
+        .highlight-note {
+          margin-top: 0.5rem !important;
+          padding: 0.5rem 0.75rem;
+          background: rgba(0,0,0,0.03);
+          border-left: 3px solid #b45309;
+          border-radius: 0 4px 4px 0;
+          font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .legal-footer {
+          margin-top: 2.5rem;
+          padding-top: 1.5rem;
+          border-top: 2px solid rgba(0,0,0,0.1);
+          text-align: center;
+        }
+
+        .legal-footer p {
+          font-size: 0.875rem;
+          line-height: 1.6;
+        }
+
+        /* Links */
+        .terms-content a {
+          color: #b45309;
+          text-decoration: none;
+        }
+
+        .terms-content a:hover {
+          text-decoration: underline;
+        }
+      `}</style>
     </LegalLayout>
   );
 }

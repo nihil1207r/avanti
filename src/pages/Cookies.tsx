@@ -1,50 +1,198 @@
+import { useTranslation } from "react-i18next";
 import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Cookies() {
+  const { t } = useTranslation();
   return (
-    <LegalLayout title="Politică Cookie" path="/cookies">
-      <h2>Ce sunt cookie-urile?</h2>
-      <p>
-        Cookie-urile sunt fișiere mici stocate pe dispozitivul tău atunci când vizitezi un site web.
-        Ele ne ajută să îmbunătățim experiența ta de navigare și să îți oferim servicii relevante.
-      </p>
+    <LegalLayout title={t("legalPages.cookies.title")} path="/cookies">
+      <div className="terms-content">
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s1_title")}</h2>
+          <p>{t("legalPages.cookies.s1_text")}</p>
+        </section>
 
-      <h2>Cum folosim cookie-urile</h2>
-      <p>Folosim cookie-uri pentru:</p>
-      <ul>
-        <li>✔ funcționarea site-ului (coș de cumpărături, autentificare)</li>
-        <li>✔ îmbunătățirea experienței de navigare</li>
-        <li>✔ afișarea de oferte relevante</li>
-        <li>✔ analiză trafic și statistici</li>
-        <li>✔ marketing și remarketing</li>
-      </ul>
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s2_title")}</h2>
+          <ul className="step-list">
+            {((t("legalPages.cookies.s2_items", { returnObjects: true }) as string[]) || []).map((it, idx) => (
+              <li key={idx}>
+                <span className="step-icon">✔</span>
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <h2>Tipuri de cookie-uri utilizate</h2>
-      <h3>Cookie-uri necesare</h3>
-      <p>Esențiale pentru funcționarea site-ului. Nu pot fi dezactivate fără a afecta experiența de utilizare.</p>
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s3_title")}</h2>
+          <ul className="info-list">
+            <li>
+              <span className="info-icon">🔒</span>
+              <span><strong>{t("legalPages.cookies.s3_necessary_label")}</strong> — {t("legalPages.cookies.s3_necessary_desc")}</span>
+            </li>
+            <li>
+              <span className="info-icon">📊</span>
+              <span><strong>{t("legalPages.cookies.s3_analytics_label")}</strong> — {t("legalPages.cookies.s3_analytics_desc")}</span>
+            </li>
+            <li>
+              <span className="info-icon">📣</span>
+              <span><strong>{t("legalPages.cookies.s3_marketing_label")}</strong> — {t("legalPages.cookies.s3_marketing_desc")}</span>
+            </li>
+          </ul>
+        </section>
 
-      <h3>Cookie-uri de analiză</h3>
-      <p>Ne ajută să înțelegem cum interacționezi cu site-ul (ex: Google Analytics).</p>
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s4_title")}</h2>
+          <p>{t("legalPages.cookies.s4_text")}</p>
+        </section>
 
-      <h3>Cookie-uri de marketing</h3>
-      <p>Utilizate pentru a îți arăta reclame relevante pe alte platforme (ex: Google Ads, Meta/Facebook).</p>
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s5_title")}</h2>
+          <ul className="step-list">
+            {((t("legalPages.cookies.s5_step1", { returnObjects: true }) as string[]) || t("legalPages.cookies.s5_step1")).map ? ((t("legalPages.cookies.s5_step1", { returnObjects: true }) as string[]) || []).map((it, idx) => (
+              <li key={idx}>
+                <span className="step-icon">✔</span>
+                <span>{it}</span>
+              </li>
+            )) : (
+              <>
+                <li><span className="step-icon">✔</span><span>{t("legalPages.cookies.s5_step1")}</span></li>
+                <li><span className="step-icon">✔</span><span>{t("legalPages.cookies.s5_step2")}</span></li>
+              </>
+            )}
+          </ul>
+          <p className="highlight-note">{t("legalPages.cookies.s5_note")}</p>
+        </section>
 
-      <h2>Servicii terțe</h2>
-      <p>Folosim servicii precum <strong>Google</strong> și <strong>Meta</strong> pentru analiză și marketing. Aceste servicii pot plasa propriile cookie-uri pe dispozitivul tău.</p>
+        <section className="legal-section">
+          <h2>{t("legalPages.cookies.s6_title")}</h2>
+          <div className="contact-block">
+            <p>📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a></p>
+            <p>📞 0745 383 256</p>
+          </div>
+        </section>
 
-      <h2>Controlul cookie-urilor</h2>
-      <p>Poți accepta sau modifica preferințele oricând prin:</p>
-      <ul>
-        <li>Banner-ul de cookie-uri afișat la prima vizită</li>
-        <li>Setările browserului tău</li>
-      </ul>
-      <p>Dezactivarea cookie-urilor poate afecta funcționalitatea anumitor secțiuni ale site-ului.</p>
+        <div className="legal-footer">
+          <p><strong>{t("legalPages.cookies.footer")}</strong></p>
+        </div>
 
-      <h2>Contact</h2>
-      <p>
-        📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a><br />
-        📞 0745 383 256
-      </p>
+      </div>
+
+      <style>{`
+        .terms-content {
+          font-family: inherit;
+          color: inherit;
+          max-width: 800px;
+        }
+
+        .legal-section {
+          margin-bottom: 2rem;
+        }
+
+        .legal-section h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #b45309;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.75rem;
+          margin-top: 0;
+        }
+
+        .legal-section p {
+          margin: 0.4rem 0;
+          line-height: 1.7;
+        }
+
+        /* Contact block */
+        .contact-block {
+          padding: 0.75rem 1rem;
+          background: rgba(0,0,0,0.03);
+          border-left: 3px solid #b45309;
+          border-radius: 0 4px 4px 0;
+        }
+
+        .contact-block p {
+          margin: 0.3rem 0;
+          font-size: 0.9rem;
+        }
+
+        /* Step list (checkmarks) */
+        .step-list,
+        .info-list,
+        .status-list,
+        .link-list {
+          list-style: none;
+          margin: 0.25rem 0;
+          padding: 0;
+        }
+
+        .step-list li,
+        .info-list li,
+        .status-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          padding: 0.4rem 0;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+          line-height: 1.6;
+        }
+
+        .step-list li:last-child,
+        .info-list li:last-child,
+        .status-list li:last-child {
+          border-bottom: none;
+        }
+
+        .step-icon,
+        .info-icon,
+        .status-icon {
+          flex-shrink: 0;
+          width: 1.25rem;
+          text-align: center;
+          margin-top: 0.1rem;
+        }
+
+        /* Note styling */
+        .note {
+          margin-top: 0.75rem !important;
+          font-size: 0.875rem;
+          opacity: 0.75;
+          font-style: italic;
+        }
+
+        .highlight-note {
+          margin-top: 0.5rem !important;
+          padding: 0.5rem 0.75rem;
+          background: rgba(0,0,0,0.03);
+          border-left: 3px solid #b45309;
+          border-radius: 0 4px 4px 0;
+          font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .legal-footer {
+          margin-top: 2.5rem;
+          padding-top: 1.5rem;
+          border-top: 2px solid rgba(0,0,0,0.1);
+          text-align: center;
+        }
+
+        .legal-footer p {
+          font-size: 0.875rem;
+          line-height: 1.6;
+        }
+
+        /* Links */
+        .terms-content a {
+          color: #b45309;
+          text-decoration: none;
+        }
+
+        .terms-content a:hover {
+          text-decoration: underline;
+        }
+      `}</style>
     </LegalLayout>
   );
 }

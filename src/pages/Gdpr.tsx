@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { LegalLayout } from "@/components/LegalLayout";
 
 export default function Gdpr() {
+  const { t } = useTranslation();
   return (
-    <LegalLayout title="GDPR" path="/gdpr">
+    <LegalLayout title={t("legalPages.gdpr.title")} path="/gdpr">
       <h2>I. Definiții</h2>
       <p><strong>Operator (Administrator date personale)</strong> – persoana juridică ce stabilește scopurile și mijloacele prelucrării datelor.</p>
       <p><strong>Persoană împuternicită (Procesator)</strong> – entitatea care prelucrează datele în numele Operatorului.</p>

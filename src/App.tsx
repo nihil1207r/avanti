@@ -23,8 +23,9 @@ const Privacy   = lazy(() => import("./pages/Privacy"));
 const Terms     = lazy(() => import("./pages/Terms"));
 const Cookies   = lazy(() => import("./pages/Cookies"));
 const Delivery  = lazy(() => import("./pages/Delivery"));
-const Returns   = lazy(() => import("./pages/Returns"));
-const Auth      = lazy(() => import("./pages/Auth"));
+const Returns        = lazy(() => import("./pages/Returns"));
+const ContactDetails = lazy(() => import("./pages/ContactDetails"));
+const Auth           = lazy(() => import("./pages/Auth"));
 const Admin     = lazy(() => import("./pages/Admin"));
 const NotFound  = lazy(() => import("./pages/NotFound"));
 
@@ -73,6 +74,7 @@ const App = () => (
                 <Route path="/cookies"            element={<Layout><Cookies /></Layout>} />
                 <Route path="/livrare"            element={<Layout><Delivery /></Layout>} />
                 <Route path="/retur"              element={<Layout><Returns /></Layout>} />
+                <Route path="/contact-detalii"   element={<Layout><ContactDetails /></Layout>} />
                 <Route path="/auth"               element={<Auth />} />
                 <Route path="/admin"              element={<Layout><Admin /></Layout>} />
                 <Route path="*"                   element={<NotFound />} />
