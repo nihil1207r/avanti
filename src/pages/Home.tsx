@@ -128,13 +128,14 @@ const Home = () => {
 
       <PizzaScrollAnimation
         primaryButton={
-          <Button asChild size="lg" className="bg-primary hover:bg-primary-glow text-primary-foreground shadow-warm h-14 px-8 text-base">
+          // "View Menu" — outline, renders first (left)
+          <Button asChild size="lg" variant="outline" className="h-14 px-8 text-base bg-transparent border-white/40 text-white hover:bg-white hover:text-foreground">
             <Link to="/meniu">{t("hero.cta")} <ArrowRight className="ml-1 size-4" /></Link>
           </Button>
         }
         secondaryButton={
-          // ✅ "Order Now" opens comanda.avantipizza.ro in a new tab
-          <Button asChild size="lg" variant="outline" className="h-14 px-8 text-base bg-transparent border-white/40 text-white hover:bg-white hover:text-foreground">
+          // "Order Now" — red, renders second (right)
+          <Button asChild size="lg" className="bg-primary hover:bg-primary-glow text-primary-foreground shadow-warm h-14 px-8 text-base">
             <a href="https://comanda.avantipizza.ro" target="_blank" rel="noopener noreferrer">
               {t("modal.order")} <ArrowRight className="ml-1 size-4" />
             </a>
@@ -217,13 +218,13 @@ const Home = () => {
             className="container-edge flex flex-col sm:flex-row items-center justify-center gap-4"
             style={{ position: "relative", zIndex: 2 }}
           >
-            <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px]">
-              <Link to="/meniu">{t("hero.cta")} <ArrowRight className="ml-1 size-4" /></Link>
-            </Button>
             <Button asChild size="lg" className="bg-primary hover:bg-primary-glow text-primary-foreground min-w-[180px]">
               <a href="https://comanda.avantipizza.ro" target="_blank" rel="noopener noreferrer">
                 {t("modal.order")} <ArrowRight className="ml-1 size-4" />
               </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px]">
+              <Link to="/meniu">{t("hero.cta")} <ArrowRight className="ml-1 size-4" /></Link>
             </Button>
           </div>
         </section>
@@ -315,21 +316,21 @@ const Home = () => {
                 <div className="font-display text-lg font-semibold">0745 383 256</div>
               </div>
             </a>
-          <Link
-            to="/contact"
-            className="flex items-center gap-3 rounded-2xl bg-background text-foreground px-6 py-4 hover-lift shadow-elegant"
-          >
-            <div className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground">
-              <MapPin className="size-5" />
-            </div>
-            <div>
-              <div className="text-xs opacity-70 uppercase tracking-wider">{t("cta.visit")}</div>
-              <div className="font-display text-lg font-semibold">Botoșani, RO</div>
-            </div>
-          </Link>
+            <Link
+              to="/contact"
+              className="flex items-center gap-3 rounded-2xl bg-background text-foreground px-6 py-4 hover-lift shadow-elegant"
+            >
+              <div className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground">
+                <MapPin className="size-5" />
+              </div>
+              <div>
+                <div className="text-xs opacity-70 uppercase tracking-wider">{t("cta.visit")}</div>
+                <div className="font-display text-lg font-semibold">Botoșani, RO</div>
+              </div>
+            </Link>
+          </div>
         </div>
-      </div>
-    </section >
+      </section >
     </>
   );
 };

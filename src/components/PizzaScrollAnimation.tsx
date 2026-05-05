@@ -192,25 +192,25 @@ export function PizzaScrollAnimation({
             transition={{ duration: 0.9, delay: 0.75 }}
             className="mt-10 flex flex-wrap gap-3 justify-center"
           >
-            {primaryButton || (
+            {secondaryButton || (
               <Button
                 asChild
                 size="lg"
                 className="bg-primary hover:bg-primary-glow shadow-warm text-base h-14 px-8"
               >
-                <Link to="/meniu">
-                  {t("hero.cta")} <ArrowRight className="ml-1" />
-                </Link>
+                <Link to="/contact">{t("hero.cta2")}</Link>
               </Button>
             )}
-            {secondaryButton || (
+            {primaryButton || (
               <Button
                 asChild
                 size="lg"
                 variant="outline"
                 className="h-14 px-8 text-base bg-transparent border-white/40 text-white hover:bg-white hover:text-foreground"
               >
-                <Link to="/contact">{t("hero.cta2")}</Link>
+                <Link to="/meniu">
+                  {t("hero.cta")} <ArrowRight className="ml-1" />
+                </Link>
               </Button>
             )}
           </motion.div>

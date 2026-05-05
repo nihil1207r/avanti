@@ -79,18 +79,12 @@ const Contact = () => {
         {/* Background video */}
         <video
           className="absolute inset-0 w-full h-full object-cover"
+          src="/videos/Pizza_Intro_trimmed.mp4"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
-          // @ts-ignore — fetchpriority is valid but not yet in all TS DOM libs
-          fetchpriority="high"
-          poster="/videos/Pizza_Intro_poster.jpg"
-        >
-          <source src="/videos/Pizza_Intro_trimmed.webm" type="video/webm" />
-          <source src="/videos/Pizza_Intro_trimmed.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Dark overlay so content stays readable */}
         <div className="absolute inset-0 bg-black/60" />

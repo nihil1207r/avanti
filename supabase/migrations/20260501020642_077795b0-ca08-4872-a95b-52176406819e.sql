@@ -1,0 +1,1 @@
+UPDATE menu_items SET image_url = 'https://ipakwhqygsltsjixmgec.supabase.co/storage/v1/object/public/menu-images/pizza_vegetariana.jpg' WHERE name_ro = 'Pizza Vegetariană';

@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, MapPin, Phone } from "lucide-react";
 import logo from "@/assets/logo.png";
-import anpcSal from "@/assets/anpc-sal.svg";
-import anpcSol from "@/assets/anpc-sol.svg";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -26,7 +24,7 @@ export function Footer() {
               aria-label="Facebook"
               className="rounded-full border border-secondary-foreground/20 p-2.5 hover:bg-accent hover:text-accent-foreground hover:border-transparent transition-all"
             >
-              <Facebook className="h-4 w-4" />
+              <Facebook className="size-4" />
             </a>
             <a
               href="https://www.instagram.com/avantipizzabt/"
@@ -35,7 +33,7 @@ export function Footer() {
               aria-label="Instagram"
               className="rounded-full border border-secondary-foreground/20 p-2.5 hover:bg-accent hover:text-accent-foreground hover:border-transparent transition-all"
             >
-              <Instagram className="h-4 w-4" />
+              <Instagram className="size-4" />
             </a>
           </div>
         </div>
@@ -64,33 +62,33 @@ export function Footer() {
 
         {/* Bottom row: ANPC badges + contact */}
         <div className="md:col-span-4 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-secondary-foreground/15 pt-8">
-          <div className="flex flex-row flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
 
-            {/* SAL badge */}
+            {/* SAL badge — official image, same source used by btgh.ro */}
             <a
-              href="https://anpc.ro/ce-este-sal/"
+              href="https://reclamatiisal.anpc.ro/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="ANPC - Soluționarea Alternativă a Litigiilor"
             >
               <img
-                src={anpcSal}
+                src="https://www.santinipremium.ro/image/anpc-sal.png"
                 alt="ANPC SAL"
-                className="h-[50px] w-auto object-contain"
+                className="h-[54px] w-auto object-contain"
               />
             </a>
 
-            {/* SOL badge */}
+            {/* SOL badge — official image */}
             <a
-              href="https://ec.europa.eu/consumers/odr"
+              href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="ANPC - Soluționarea Online a Litigiilor"
             >
               <img
-                src={anpcSol}
+                src="https://www.santinipremium.ro/image/anpc-sol.png"
                 alt="ANPC SOL"
-                className="h-[50px] w-auto object-contain"
+                className="h-[54px] w-auto object-contain"
               />
             </a>
           </div>
@@ -98,10 +96,10 @@ export function Footer() {
           {/* Contact info */}
           <div className="flex flex-col items-center md:items-end space-y-2 text-sm text-secondary-foreground/80">
             <p className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-accent" /> Botoșani, România
+              <MapPin className="size-4 text-accent" /> Botoșani, România
             </p>
             <p className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-accent" /> 0745 383 256
+              <Phone className="size-4 text-accent" /> 0745 383 256
             </p>
           </div>
         </div>
