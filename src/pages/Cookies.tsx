@@ -1,34 +1,50 @@
-import { useTranslation } from "react-i18next";
 import { LegalLayout } from "@/components/LegalLayout";
-const Cookies = () => {
-  const { t, i18n } = useTranslation();
-  const en = i18n.language.startsWith("en");
+
+export default function Cookies() {
   return (
-    <LegalLayout title={t("legal.cookies")} path="/cookies">
-      {en ? (
-        <>
-          <h2>What are cookies?</h2><p>Small text files stored on your device to help the site function and remember your preferences.</p>
-          <h2>Cookies we use</h2>
-          <ul>
-            <li><strong>avanti-cookie-consent</strong> — stores your consent choice. Duration: 12 months. Type: necessary.</li>
-            <li><strong>i18nextLng</strong> — stores your selected language (RO/EN). Duration: persistent. Type: preference.</li>
-            <li><strong>sb-*</strong> — authentication session for admin area. Duration: session. Type: necessary.</li>
-          </ul>
-          <h2>How to manage cookies</h2><p>You can clear them anytime from your browser settings.</p>
-        </>
-      ) : (
-        <>
-          <h2>Ce sunt cookies-urile?</h2><p>Mici fișiere text stocate pe dispozitivul tău pentru a ajuta site-ul să funcționeze și a-ți reține preferințele.</p>
-          <h2>Cookies pe care le folosim</h2>
-          <ul>
-            <li><strong>avanti-cookie-consent</strong> — stochează alegerea ta de consimțământ. Durată: 12 luni. Tip: necesar.</li>
-            <li><strong>i18nextLng</strong> — stochează limba selectată (RO/EN). Durată: persistent. Tip: preferință.</li>
-            <li><strong>sb-*</strong> — sesiune de autentificare pentru zona admin. Durată: sesiune. Tip: necesar.</li>
-          </ul>
-          <h2>Cum gestionezi cookies-urile</h2><p>Le poți șterge oricând din setările browserului.</p>
-        </>
-      )}
+    <LegalLayout title="Politică Cookie" path="/cookies">
+      <h2>Ce sunt cookie-urile?</h2>
+      <p>
+        Cookie-urile sunt fișiere mici stocate pe dispozitivul tău atunci când vizitezi un site web.
+        Ele ne ajută să îmbunătățim experiența ta de navigare și să îți oferim servicii relevante.
+      </p>
+
+      <h2>Cum folosim cookie-urile</h2>
+      <p>Folosim cookie-uri pentru:</p>
+      <ul>
+        <li>✔ funcționarea site-ului (coș de cumpărături, autentificare)</li>
+        <li>✔ îmbunătățirea experienței de navigare</li>
+        <li>✔ afișarea de oferte relevante</li>
+        <li>✔ analiză trafic și statistici</li>
+        <li>✔ marketing și remarketing</li>
+      </ul>
+
+      <h2>Tipuri de cookie-uri utilizate</h2>
+      <h3>Cookie-uri necesare</h3>
+      <p>Esențiale pentru funcționarea site-ului. Nu pot fi dezactivate fără a afecta experiența de utilizare.</p>
+
+      <h3>Cookie-uri de analiză</h3>
+      <p>Ne ajută să înțelegem cum interacționezi cu site-ul (ex: Google Analytics).</p>
+
+      <h3>Cookie-uri de marketing</h3>
+      <p>Utilizate pentru a îți arăta reclame relevante pe alte platforme (ex: Google Ads, Meta/Facebook).</p>
+
+      <h2>Servicii terțe</h2>
+      <p>Folosim servicii precum <strong>Google</strong> și <strong>Meta</strong> pentru analiză și marketing. Aceste servicii pot plasa propriile cookie-uri pe dispozitivul tău.</p>
+
+      <h2>Controlul cookie-urilor</h2>
+      <p>Poți accepta sau modifica preferințele oricând prin:</p>
+      <ul>
+        <li>Banner-ul de cookie-uri afișat la prima vizită</li>
+        <li>Setările browserului tău</li>
+      </ul>
+      <p>Dezactivarea cookie-urilor poate afecta funcționalitatea anumitor secțiuni ale site-ului.</p>
+
+      <h2>Contact</h2>
+      <p>
+        📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a><br />
+        📞 0745 383 256
+      </p>
     </LegalLayout>
   );
-};
-export default Cookies;
+}

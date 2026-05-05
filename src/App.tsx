@@ -22,6 +22,8 @@ const Gdpr      = lazy(() => import("./pages/Gdpr"));
 const Privacy   = lazy(() => import("./pages/Privacy"));
 const Terms     = lazy(() => import("./pages/Terms"));
 const Cookies   = lazy(() => import("./pages/Cookies"));
+const Delivery  = lazy(() => import("./pages/Delivery"));
+const Returns   = lazy(() => import("./pages/Returns"));
 const Auth      = lazy(() => import("./pages/Auth"));
 const Admin     = lazy(() => import("./pages/Admin"));
 const NotFound  = lazy(() => import("./pages/NotFound"));
@@ -69,6 +71,8 @@ const App = () => (
                 <Route path="/confidentialitate"  element={<Layout><Privacy /></Layout>} />
                 <Route path="/termeni"            element={<Layout><Terms /></Layout>} />
                 <Route path="/cookies"            element={<Layout><Cookies /></Layout>} />
+                <Route path="/livrare"            element={<Layout><Delivery /></Layout>} />
+                <Route path="/retur"              element={<Layout><Returns /></Layout>} />
                 <Route path="/auth"               element={<Auth />} />
                 <Route path="/admin"              element={<Layout><Admin /></Layout>} />
                 <Route path="*"                   element={<NotFound />} />

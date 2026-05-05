@@ -83,6 +83,8 @@ export function Footer() {
             <li><Link to="/confidentialitate" className="hover:text-accent transition-colors">{t("legal.privacy")}</Link></li>
             <li><Link to="/termeni" className="hover:text-accent transition-colors">{t("legal.terms")}</Link></li>
             <li><Link to="/cookies" className="hover:text-accent transition-colors">{t("legal.cookies")}</Link></li>
+            <li><Link to="/livrare" className="hover:text-accent transition-colors">{t("legal.delivery", "Livrare")}</Link></li>
+            <li><Link to="/retur" className="hover:text-accent transition-colors">{t("legal.returns", "Retur & Reclamații")}</Link></li>
           </ul>
         </div>
 

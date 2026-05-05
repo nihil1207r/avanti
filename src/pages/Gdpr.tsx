@@ -1,39 +1,99 @@
-import { useTranslation } from "react-i18next";
 import { LegalLayout } from "@/components/LegalLayout";
 
-const Gdpr = () => {
-  const { t, i18n } = useTranslation();
-  const en = i18n.language.startsWith("en");
+export default function Gdpr() {
   return (
-    <LegalLayout title={t("legal.gdpr")} path="/gdpr">
-      {en ? (
-        <>
-          <h2>Data Controller</h2>
-          <p>Avanti Pizza, Botoșani, România. Contact: 0745 383 256.</p>
-          <h2>What data we collect</h2>
-          <ul><li>Contact form: name, email, message.</li><li>Anonymous website analytics.</li><li>Cookies (see Cookie Policy).</li></ul>
-          <h2>Purpose</h2>
-          <p>To respond to your inquiries and improve our services. We never sell your data.</p>
-          <h2>Your rights</h2>
-          <ul><li>Right of access, rectification, erasure</li><li>Right to restrict / object</li><li>Right to data portability</li><li>Right to lodge a complaint with ANSPDCP</li></ul>
-          <h2>Contact DPO</h2>
-          <p>Email: contact@avantipizza.ro · Phone: 0745 383 256</p>
-        </>
-      ) : (
-        <>
-          <h2>Operatorul de date</h2>
-          <p>Avanti Pizza, Botoșani, România. Contact: 0745 383 256.</p>
-          <h2>Ce date colectăm</h2>
-          <ul><li>Formular de contact: nume, email, mesaj.</li><li>Date de analiză anonime ale site-ului.</li><li>Cookies (vezi Politica de Cookies).</li></ul>
-          <h2>Scop</h2>
-          <p>Pentru a răspunde solicitărilor tale și a îmbunătăți serviciile noastre. Nu vindem niciodată datele tale.</p>
-          <h2>Drepturile tale</h2>
-          <ul><li>Dreptul de acces, rectificare, ștergere</li><li>Dreptul de restricționare / opoziție</li><li>Dreptul la portabilitatea datelor</li><li>Dreptul de a depune plângere la ANSPDCP</li></ul>
-          <h2>Contact DPO</h2>
-          <p>Email: contact@avantipizza.ro · Telefon: 0745 383 256</p>
-        </>
-      )}
+    <LegalLayout title="GDPR" path="/gdpr">
+      <h2>I. Definiții</h2>
+      <p><strong>Operator (Administrator date personale)</strong> – persoana juridică ce stabilește scopurile și mijloacele prelucrării datelor.</p>
+      <p><strong>Persoană împuternicită (Procesator)</strong> – entitatea care prelucrează datele în numele Operatorului.</p>
+      <p><strong>Platforma online / aplicația mobilă (Sistem informatic)</strong> – aplicațiile prin care clienții pot comanda produse și servicii.</p>
+      <p><strong>Date cu caracter personal</strong> – orice informații despre o persoană fizică identificată sau identificabilă (ex: nume, telefon, adresă, IP, etc.).</p>
+      <p><strong>Prelucrare</strong> – orice operațiune asupra datelor (colectare, stocare, utilizare, transmitere, ștergere).</p>
+      <p><strong>Consimțământ</strong> – acord liber, specific, informat și lipsit de ambiguitate.</p>
+      <p><strong>GDPR</strong> – Regulamentul (UE) 2016/679.</p>
+
+      <h2>II. Operatorul de date</h2>
+      <p>Operatorul datelor este:</p>
+      <p>
+        <strong>AVANTI FOOD DELIVERY SRL</strong><br />
+        CUI: 36010706<br />
+        Nr. Reg. Com.: J2016000218071<br />
+        Uvertura Mall, Calea Națională 91, 710048 Botoșani, România<br />
+        📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a><br />
+        📞 0745 383 256
+      </p>
+
+      <h2>III. Ce date colectăm</h2>
+      <h3>Date furnizate direct:</h3>
+      <ul>
+        <li>Nume și prenume</li>
+        <li>Număr de telefon</li>
+        <li>Adresă de livrare</li>
+        <li>Email</li>
+        <li>Detalii comandă</li>
+      </ul>
+      <h3>Date colectate automat:</h3>
+      <ul>
+        <li>Adresă IP</li>
+        <li>Browser și dispozitiv</li>
+        <li>Activitate pe site</li>
+        <li>Cookie-uri</li>
+      </ul>
+
+      <h2>IV. Scopurile prelucrării</h2>
+      <p>Datele sunt utilizate pentru: procesarea comenzilor, livrarea produselor, confirmarea comenzilor, emiterea facturilor, suport clienți, marketing (cu consimțământ), îmbunătățirea serviciilor, securitate și prevenirea fraudei.</p>
+
+      <h2>V. Temeiul legal</h2>
+      <p>Prelucrarea datelor se face în baza:</p>
+      <ul>
+        <li>executării contractului (Art. 6(1)(b) GDPR)</li>
+        <li>obligațiilor legale (Art. 6(1)(c))</li>
+        <li>interesului legitim (Art. 6(1)(f))</li>
+        <li>consimțământului (Art. 6(1)(a))</li>
+      </ul>
+
+      <h2>VI. Plăți online</h2>
+      <p>Plățile sunt procesate prin furnizori securizați (ex: Netopia, Stripe). Nu stocăm datele cardului bancar.</p>
+
+      <h2>VII. Marketing</h2>
+      <p>Datele pot fi utilizate pentru email marketing, SMS marketing și notificări promoționale — doar cu consimțământ explicit. Consimțământul poate fi retras oricând.</p>
+
+      <h2>VIII. Cookie-uri</h2>
+      <p>Site-ul utilizează cookie-uri pentru: funcționare (coș, login), analiză (trafic) și marketing. Utilizatorul poate controla cookie-urile prin banner sau browser.</p>
+
+      <h2>IX. Destinatarii datelor</h2>
+      <p>Datele pot fi transmise către: furnizori IT (hosting, mentenanță), procesatori de plăți, servicii de livrare și platforme marketing (Google, Meta).</p>
+
+      <h2>X. Perioada de stocare</h2>
+      <ul>
+        <li>Comenzi / facturi: 5–10 ani</li>
+        <li>Cont client: până la ștergere</li>
+        <li>Marketing: până la retragere</li>
+        <li>Log-uri: până la 12 luni</li>
+      </ul>
+
+      <h2>XI. Drepturile utilizatorului</h2>
+      <p>Aveți dreptul la: acces la date, rectificare, ștergere, restricționare, portabilitate, opoziție și retragerea consimțământului.</p>
+      <p>Pentru exercitare: 📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a></p>
+      <p>Aveți dreptul să depuneți plângere la autoritatea competentă (ANSPDCP).</p>
+
+      <h2>XII. Securitatea datelor</h2>
+      <p>Aplicăm măsuri adecvate: conexiune securizată (HTTPS), acces restricționat, protecție server și backup periodic.</p>
+
+      <h2>XIII. Transferuri internaționale</h2>
+      <p>Datele pot fi transferate în afara SEE doar cu garanții legale adecvate (clauze contractuale standard).</p>
+
+      <h2>XIV. Datele minorilor</h2>
+      <p>Nu colectăm intenționat date de la persoane sub 16 ani.</p>
+
+      <h2>XV. Modificări</h2>
+      <p>Politica poate fi actualizată periodic. Versiunea actuală este disponibilă pe site.</p>
+
+      <h2>XVI. Contact</h2>
+      <p>
+        📧 <a href="mailto:contact.avantipizza@gmail.com">contact.avantipizza@gmail.com</a><br />
+        📞 0745 383 256
+      </p>
     </LegalLayout>
   );
-};
-export default Gdpr;
+}
