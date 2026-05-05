@@ -21,7 +21,7 @@ const Menu = () => {
   const [q, setQ] = useState("");
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
-  // ✅ Fix: resolves to pizza category once cats loads, not "all"
+  // Resolves to pizza category once cats loads, not "all"
   const effectiveActive = useMemo(() => {
     if (active !== null) return active;
     return cats.find((c) => c.slug === "pizza")?.id ?? "all";
@@ -39,8 +39,18 @@ const Menu = () => {
           .includes(s),
       );
     }
+    // When showing "all", sort items by category order (Pizza → Burgers → …)
+    if (effectiveActive === "all") {
+      const catOrder = cats.reduce<Record<string, number>>((acc, c, idx) => {
+        acc[c.id] = idx;
+        return acc;
+      }, {});
+      list = [...list].sort(
+        (a, b) => (catOrder[a.category_id] ?? 999) - (catOrder[b.category_id] ?? 999),
+      );
+    }
     return list;
-  }, [items, effectiveActive, q]);
+  }, [items, effectiveActive, q, cats]);
 
   const tabs = [
     ...cats.map((c) => ({ id: c.id, label: lang === "en" ? c.name_en : c.name_ro, slug: c.slug })),
@@ -173,7 +183,7 @@ const Menu = () => {
                     onClick={() => setSelectedItem(null)}
                     className="absolute right-4 top-4 z-10 rounded-full bg-background/80 backdrop-blur p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <X className="size-5" />
+                      <X className="h-5 w-5" />
                   </button>
 
                   <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -189,8 +199,8 @@ const Menu = () => {
                         ].join(" ")}
                       />
                     ) : (
-                      <div className="flex size-full items-center justify-center bg-gradient-warm">
-                        <Pizza className="size-20 text-primary/30" strokeWidth={1.2} />
+                      <div className="flex w-full h-full items-center justify-center bg-gradient-warm">
+                        <Pizza className="h-20 w-20 text-primary/30" strokeWidth={1.2} />
                       </div>
                     )}
                     {selectedItem.badge && (
