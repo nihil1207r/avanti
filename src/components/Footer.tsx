@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Facebook, Instagram, MapPin, Phone } from "lucide-react";
 import logo from "@/assets/logo.png";
+import anpcSal from "@/assets/anpc-sal.svg";
+import anpcSol from "@/assets/anpc-sol.svg";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -64,7 +66,7 @@ export function Footer() {
         <div className="md:col-span-4 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-secondary-foreground/15 pt-8">
           <div className="flex flex-col sm:flex-row items-center gap-4">
 
-            {/* SAL badge — official image, same source used by btgh.ro */}
+            {/* SAL badge */}
             <a
               href="https://reclamatiisal.anpc.ro/"
               target="_blank"
@@ -72,13 +74,13 @@ export function Footer() {
               aria-label="ANPC - Soluționarea Alternativă a Litigiilor"
             >
               <img
-                src="https://www.santinipremium.ro/image/anpc-sal.png"
+                src={anpcSal}
                 alt="ANPC SAL"
                 className="h-[54px] w-auto object-contain"
               />
             </a>
 
-            {/* SOL badge — official image */}
+            {/* SOL badge */}
             <a
               href="https://consumer-redress.ec.europa.eu/site-relocation_en?event=main.home2.show&lng=RO"
               target="_blank"
@@ -86,7 +88,7 @@ export function Footer() {
               aria-label="ANPC - Soluționarea Online a Litigiilor"
             >
               <img
-                src="https://www.santinipremium.ro/image/anpc-sol.png"
+                src={anpcSol}
                 alt="ANPC SOL"
                 className="h-[54px] w-auto object-contain"
               />
